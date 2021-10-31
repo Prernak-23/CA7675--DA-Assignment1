@@ -1,0 +1,17 @@
+beeline -u jdbc:hive2://localhost:10000/deafault -n prerna_kamboj2@cluster-da-ass1-m -d org.apache.hive.jdbc.HiveDriver
+
+CREATE EXTERNAL TABLE postsdata1
+       (id BIGINT,
+        score BIGINT,
+        body STRING,
+        owneruserid BIGINT,
+        title STRING,
+        tags STRING)
+      ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' 
+      LOCATION 'gs://da-ass1-bucket/';  
+
+SELECT Id, Title, Score from postdata1 ORDER BY Score desc limit 10;
+
+SELECT OwnerUserId, SUM(Score) AS TotalScore FROM postdata1 GROUP BY OwnerUserId ORDER BY TotalScore DESC LIMIT 10;
+
+SELECT COUNT(DISTINCT OwnerUserId) AS TotalCount  FROM postsdata1 WHERE (body LIKE '%cloud%' OR title LIKE '%cloud%' OR tags LIKE '%cloud%');
